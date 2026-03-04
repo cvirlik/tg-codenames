@@ -1,34 +1,10 @@
+import { useMemo } from "react";
 import { WordGrid } from "./components/WordGrid";
-
-const words = [
-  "Apple",
-  "Banana",
-  "Cherry",
-  "Date",
-  "Elderberry",
-  "Fig",
-  "Grape",
-  "Honeydew",
-  "Kiwi",
-  "Lemon",
-  "Mango",
-  "Nectarine",
-  "Orange",
-  "Papaya",
-  "Quince",
-  "Raspberry",
-  "Strawberry",
-  "Tangerine",
-  "Ugli",
-  "Vanilla",
-  "Watermelon",
-  "Xigua",
-  "Passion",
-  "Zucchini",
-  "Zucchini 2",
-];
+import { buildRandomWords } from "./temp-mocks/WordsMock";
+import { TeamsList } from "./components/Teams";
 
 function App() {
+  const words = useMemo(() => buildRandomWords(), []);
   return (
     <>
       <div
@@ -42,7 +18,7 @@ function App() {
           width: "100%",
         }}
       >
-        <p>Welcome to the Word Grid!</p>
+        <TeamsList />
         <WordGrid size={{ cols: 5, rows: 5 }} words={words} />
       </div>
     </>

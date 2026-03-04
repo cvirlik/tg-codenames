@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import * as fs from "node:fs";
 import { randomInt } from "crypto";
 
 export function shuffleInPlace<T>(items: T[]) {
@@ -9,10 +9,10 @@ export function shuffleInPlace<T>(items: T[]) {
 }
 
 export function createDictionary() {
-    const dictionaryRaw = fs.readFileSync("public/dictionary.unique.txt", "utf8");
+    const dictionaryRaw = fs.readFileSync("./dictionary.unique.txt", "utf8");
     const words = dictionaryRaw
         .split('\n')
-        .map((word) => word.trim())
+        .map((word: string) => word.trim())
         .filter(Boolean);
     shuffleInPlace(words);
     return words;

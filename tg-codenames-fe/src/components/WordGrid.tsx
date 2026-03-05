@@ -1,9 +1,4 @@
-export type Word = {
-  word: string;
-  type: "red" | "blue" | "white" | "black";
-  isRevealed: boolean;
-  selectedBy?: string[];
-};
+import type { Word } from "../hooks/GameContext";
 
 type WordGridProps = {
   size?: {
@@ -40,7 +35,11 @@ export function WordGrid({
           {word.selectedBy && word.selectedBy.length > 0 && (
             <span className="selected-badges" aria-hidden="true">
               {word.selectedBy.map((color) => (
-                <span key={`${word.word}-${color}`} className="badge" style={{ backgroundColor: color }} />
+                <span
+                  key={`${word.word}-${color}`}
+                  className="badge"
+                  style={{ backgroundColor: color }}
+                />
               ))}
             </span>
           )}

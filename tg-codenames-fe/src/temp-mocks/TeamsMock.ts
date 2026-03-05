@@ -1,14 +1,10 @@
-import type { Player } from "../components/Teams";
-
-export const players: Player[] = [
-  { name: "Alice", color: "green", team: "blue", isLeader: true },
-  { name: "Bob", color: "green", team: "blue", isLeader: false },
-  { name: "Carol", color: "green", team: "blue", isLeader: false },
-
-  { name: "Dave", color: "purple", team: "red", isLeader: true },
-  { name: "Eve", color: "purple", team: "red", isLeader: false },
-  { name: "Frank", color: "purple", team: "red", isLeader: false },
+export const blueTeam = [
+  { name: "Alice", color: "green", isLeader: true },
+  { name: "Bob", color: "green", isLeader: false },
+  { name: "Carol", color: "green", isLeader: false },
 ];
-
-export const blueTeam = players.filter((player) => player.team === "blue");
-export const redTeam = players.filter((player) => player.team === "red");
+export const redTeam = [
+  { name: "Dave", color: "purple", isLeader: true },
+  { name: "Eve", color: "purple", isLeader: false },
+  { name: "Frank", color: "purple", isLeader: false },
+];

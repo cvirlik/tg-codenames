@@ -1,13 +1,5 @@
 import { blueTeam, redTeam } from "../temp-mocks/TeamsMock";
-
-export type Team = "blue" | "red";
-
-export type Player = {
-  name: string;
-  color: string;
-  team: Team;
-  isLeader: boolean;
-};
+import type { Player, Team } from "../hooks/GameContext";
 
 function Team({ teamType, players }: { teamType: Team; players: Player[] }) {
   return (

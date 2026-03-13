@@ -1,11 +1,11 @@
 import { blueTeam, redTeam } from "../temp-mocks/TeamsMock";
-import type { Player, Team } from "../hooks/GameContext";
+import type { Team } from "../hooks/GameContext";
 
-function Team({ teamType, players }: { teamType: Team; players: Player[] }) {
+function Team({ color, players }: Team) {
   return (
     <div
       style={{
-        backgroundColor: teamType,
+        backgroundColor: color,
         padding: 12,
         borderRadius: 8,
         width: "40%",
@@ -38,8 +38,8 @@ export function TeamsList() {
         width: "100%",
       }}
     >
-      <Team teamType="blue" players={blueTeam} />
-      <Team teamType="red" players={redTeam} />
+      <Team color="blue" players={blueTeam} />
+      <Team color="red" players={redTeam} />
     </div>
   );
 }

@@ -1,0 +1,14 @@
+{
+  "name": "tg-codenames",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "tg-codenames-bot",
+    "tg-codenames-be",
+    "tg-codenames-fe"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "2.4.6",
+    "@types/bun": "latest"
+  }
+}

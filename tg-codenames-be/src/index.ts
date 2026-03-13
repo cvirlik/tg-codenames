@@ -7,6 +7,9 @@ app.get(
   '/ws',
   upgradeWebSocket((c) => {
     return {
+      onOpen: () => {
+        
+      },
       onMessage(event, ws) {
         console.log(`Message from client: ${event.data}`)
         ws.send('Hello from server!')

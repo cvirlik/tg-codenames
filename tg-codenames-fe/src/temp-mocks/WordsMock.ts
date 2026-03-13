@@ -1,4 +1,4 @@
-import type { Word } from "../components/WordGrid";
+import type { Word } from "../hooks/GameContext";
 
 const wordLabels = [
   "Apple",

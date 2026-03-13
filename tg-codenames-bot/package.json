@@ -1,15 +1,18 @@
 {
-  "type": "module",
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "run": "node build/bot.js"
-  },
-  "devDependencies": {
-    "@types/node": "^25.3.3",
-    "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "dotenv": "^17.3.1",
-    "grammy": "^1.41.1"
-  }
+	"name": "tg-codenames-bot",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --watch ./bot.ts",
+		"start": "bun ./bot.ts",
+		"build": "bun build ./bot.ts --target bun --outfile ./build/bot.js",
+		"typecheck": "bunx tsc -p tsconfig.json"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"dotenv": "^17.3.1",
+		"grammy": "^1.41.1"
+	}
 }

@@ -1,10 +1,10 @@
 import { Bot } from "grammy";
-import 'dotenv/config';
+import "dotenv/config";
 
 const botToken = process.env.BOT_TOKEN;
 
 if (!botToken) {
-    throw new Error("Missing token in environment.");
+	throw new Error("Missing token in environment.");
 }
 
 const bot = new Bot(botToken);

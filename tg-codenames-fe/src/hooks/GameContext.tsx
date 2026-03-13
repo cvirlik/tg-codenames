@@ -14,6 +14,7 @@ export type Player = {
 };
 
 export type Team = {
+  color: "red" | "blue";
   players: Player[];
 };
 
@@ -34,6 +35,14 @@ export type Game = {
   clientPlayer: Player;
 };
 
-export const GameContext = createContext<Game | null>(null);
+export type GameContextType = {
+  setGame: (game: Game | null) => void;
+  game: Game | null;
+};
+
+export const GameContext = createContext<GameContextType>({
+  game: null,
+  setGame: () => {},
+});
 
 export const useGame = () => useContext(GameContext);

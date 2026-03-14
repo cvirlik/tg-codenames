@@ -1,8 +1,13 @@
-import type { WSContext, WSMessageReceive } from "hono/ws";
+import type { Connection } from "../connection";
+import type { Player } from "../game";
+import { broadcastGame } from "./game";
+import { onJoin } from "./join";
 
 export type WSMessageData = {
-	join: { a: 1 };
-	test: {};
+	join: {
+		chatId: number;
+		player: Player;
+	};
 };
 
 export type WsMessage<T extends keyof WSMessageData> = {
@@ -15,13 +20,26 @@ const isWsMessage = <T extends keyof WSMessageData>(
 	message: unknown,
 ): message is WsMessage<T> => (message as { type?: unknown }).type === type;
 
-export function onMessage(
-	event: MessageEvent<WSMessageReceive>,
-	ws: WSContext,
-) {
-	event.data;
-	if (isWsMessage("join", event.data)) {
-		event.data.data;
+function parseMessage(message: string | BufferSource) {
+	try {
+		if (typeof message === "string") {
+			return JSON.parse(message);
+		}
+	} catch {
+		return null;
 	}
-	ws.send("Hello from server!");
+
+	return null;
+}
+
+export function handleMessage(
+	message: string | BufferSource,
+	_connection: Connection,
+) {
+	const payload = parseMessage(message);
+
+	if (isWsMessage("join", payload)) {
+		const game = onJoin(payload.data);
+		broadcastGame(game);
+	}
 }

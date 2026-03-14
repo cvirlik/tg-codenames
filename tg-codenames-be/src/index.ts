@@ -1,28 +1,45 @@
-import { Hono } from 'hono'
-import { upgradeWebSocket, websocket } from 'hono/bun'
+import { handleClose, handleOpen, type PlayerSocketData } from "./connection";
+import { handleMessage } from "./messages/index";
 
-const app = new Hono();
+const server = Bun.serve<PlayerSocketData>({
+	port: 3000,
+	fetch(req, server) {
+		const url = new URL(req.url);
 
-app.get(
-  '/ws',
-  upgradeWebSocket((c) => {
-    return {
-      onOpen: () => {
-        
-      },
-      onMessage(event, ws) {
-        console.log(`Message from client: ${event.data}`)
-        ws.send('Hello from server!')
-      },
-      onClose: () => {
-        console.log('Connection closed')
-      },
-    }
-  })
-)
+		if (url.pathname !== "/ws") {
+			return new Response("Not Found", { status: 404 });
+		}
 
-Bun.serve({
-  fetch: app.fetch,
-  port: 3000,
-  websocket,
+		const userId = Number(url.searchParams.get("userId"));
+		if (Number.isNaN(userId)) {
+			return new Response("Not Found", { status: 404 });
+		}
+		const chatId = Number(url.searchParams.get("chatId"));
+		if (Number.isNaN(chatId)) {
+			return new Response("Not Found", { status: 404 });
+		}
+		const name = url.searchParams.get("name");
+		if (!name) {
+			return new Response("Not Found", { status: 404 });
+		}
+
+		if (server.upgrade(req, { data: { userId, chatId, name } })) {
+			return;
+		}
+
+		return new Response("WebSocket upgrade failed", { status: 500 });
+	},
+	websocket: {
+		open(connection) {
+			handleOpen(connection);
+		},
+		message(connection, message) {
+			handleMessage(message, connection);
+		},
+		close(connection) {
+			handleClose(connection);
+		},
+	},
 });
+
+console.log(`Listening on ws://localhost:${server.port}/ws`);

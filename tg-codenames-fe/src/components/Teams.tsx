@@ -1,7 +1,6 @@
-import { blueTeam, redTeam } from "../temp-mocks/TeamsMock";
-import type { Team } from "../hooks/GameContext";
+import { type Player, useGame } from "../hooks/GameContext";
 
-function Team({ color, players }: Team) {
+function List({ color, players }: { color: string; players: Player[] }) {
   return (
     <div
       style={{
@@ -16,12 +15,12 @@ function Team({ color, players }: Team) {
           <span
             className="badge"
             style={{
-              backgroundColor: player.color,
+              backgroundColor: color,
               display: "inline-block",
               marginRight: "0.25rem",
             }}
           />
-          {player.name} {player.isLeader ? "(Leader)" : ""}
+          {player.name} {player.isMaster ? "(Leader)" : ""}
         </p>
       ))}
     </div>
@@ -29,6 +28,8 @@ function Team({ color, players }: Team) {
 }
 
 export function TeamsList() {
+  const { game } = useGame();
+  if (!game) return null;
   return (
     <div
       style={{
@@ -38,8 +39,8 @@ export function TeamsList() {
         width: "100%",
       }}
     >
-      <Team color="blue" players={blueTeam} />
-      <Team color="red" players={redTeam} />
+      <List color="blue" players={game.blueTeam} />
+      <List color="red" players={game.redTeam} />
     </div>
   );
 }

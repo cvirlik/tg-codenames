@@ -1,9 +1,9 @@
 {
-  "name": "codenames-be",
-  "scripts": {
-    "dev": "bun run --hot src/index.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  }
+	"name": "codenames-be",
+	"scripts": {
+		"dev": "bun run --hot src/index.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	}
 }

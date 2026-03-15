@@ -4,18 +4,14 @@ export type Word = {
   word: string;
   type: "red" | "blue" | "white" | "black" | "hidden";
   selectedBy: string[];
+  revealed: boolean;
 };
 
 export type Player = {
+  id: number;
   name: string;
-  color: string;
-  isLeader: boolean;
-  isReady: boolean;
-};
-
-export type Team = {
-  color: "red" | "blue";
-  players: Player[];
+  team?: "red" | "blue";
+  isMaster: boolean;
 };
 
 type State =
@@ -27,12 +23,11 @@ type State =
   | "game-over";
 
 export type Game = {
-  lobbyId: string;
-  redTeam: Team;
-  blueTeam: Team;
+  id: number;
+  redTeam: Player[];
+  blueTeam: Player[];
   words: Word[];
   state: State;
-  clientPlayer: Player;
 };
 
 export type GameContextType = {

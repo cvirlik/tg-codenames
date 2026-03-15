@@ -1,0 +1,67 @@
+.teams-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.team-list {
+  padding: 12px;
+  border-radius: 8px;
+  width: 40%;
+}
+
+.team-list--blue {
+  background-color: blue;
+  color: white;
+}
+
+.team-list--red {
+  background-color: red;
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-button {
+  width: 40%;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.text-button:hover {
+  text-decoration: underline;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+}
+
+.player-badge {
+  background-color: currentColor;
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+
+.join-button {
+  width: auto;
+}

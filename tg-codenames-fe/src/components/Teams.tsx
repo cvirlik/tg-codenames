@@ -1,28 +1,41 @@
+import { useMemo } from "react";
 import { type Player, useGame } from "../hooks/GameContext";
 
 function List({ color, players }: { color: string; players: Player[] }) {
+  const { currentMaster, teamPlayers } = useMemo(() => {
+    const currentMaster = players.find((player) => player.isMaster);
+    const teamPlayers = players.filter((player) => !player.isMaster);
+
+    return {
+      currentMaster: currentMaster ?? null,
+      teamPlayers,
+    };
+  }, [players]);
+
   return (
-    <div
-      style={{
-        backgroundColor: color,
-        padding: 12,
-        borderRadius: 8,
-        width: "40%",
-      }}
-    >
-      {players.map((player) => (
-        <p key={player.name}>
-          <span
-            className="badge"
-            style={{
-              backgroundColor: color,
-              display: "inline-block",
-              marginRight: "0.25rem",
-            }}
-          />
-          {player.name} {player.isMaster ? "(Leader)" : ""}
-        </p>
-      ))}
+    <div className={`team-list team-list--${color}`}>
+      <div className="content">
+        <button type="button" className="text-button">
+          {currentMaster ? currentMaster.name : "Become a master"}
+        </button>
+        <div className="players">
+          <p>Players:</p>
+          {teamPlayers.length > 0 ? (
+            teamPlayers.map((player) => (
+              <p key={player.id} className="player">
+                <span className="badge player-badge" />
+                {player.name}
+              </p>
+            ))
+          ) : (
+            <p>No players yet</p>
+          )}
+        </div>
+        <button
+          type="button"
+          className="text-button"
+        >{`Join ${color} team`}</button>
+      </div>
     </div>
   );
 }
@@ -31,14 +44,7 @@ export function TeamsList() {
   const { game } = useGame();
   if (!game) return null;
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        width: "100%",
-      }}
-    >
+    <div className="teams-list">
       <List color="blue" players={game.blueTeam} />
       <List color="red" players={game.redTeam} />
     </div>
